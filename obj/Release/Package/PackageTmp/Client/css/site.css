@@ -1,0 +1,100 @@
+body {
+    background-color: #000000;
+}
+
+.editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+    margin:20px 0;
+}
+
+.ta-editor {
+    margin-top: 10px;
+}
+
+.glyphicon {
+    margin-right: 7.5px;
+}
+
+.panel-heading a {
+    text-decoration: none;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.panel-heading {
+    padding: 0;
+}
+
+.input-xs {
+    height: 22px;
+    padding: 2px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    margin: auto;
+    border: 1px solid #ddd;
+}
+
+.white {
+    background-color: white;
+}
+
+.orange {
+    background-color: #f0ad4e;
+}
+
+.blue {
+    background-color: #5bc0de;
+}
+
+.green {
+    background-color: #5cb85c;
+}
+
+.red {
+    background-color: #d9534f;
+}
+
+.login {
+    margin: auto;
+    width: 250px;
+}
+
+.login > .row {
+    margin-bottom: 10px;
+}
+
+.local-login > * {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.login .row button {
+    width: 100%;
+}
+
+.signup {
+    margin: auto;
+    width: 250px;
+}
+
+.local-signup > * {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.local-signup button {
+    width: 100%;
+}

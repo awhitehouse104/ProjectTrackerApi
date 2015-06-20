@@ -1,0 +1,22 @@
+<div class="row signup">
+    <form name="signupForm" class="row local-signup" ng-submit="vm.signup(signupForm.$valid)" novalidate>
+        <h3>Signup</h3>
+        
+        <div class="form-group" ng-class="{ 'has-error': signupForm.email.$invalid && !signupForm.email.$pristine }">
+            <input name="email" class="form-control" placeholder="Email" type="email" ng-model="vm.newEmail" required />
+            <p ng-show="signupForm.email.$invalid && !signupForm.email.$pristine" class="help-block">Enter a valid email.</p>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': signupForm.password.$invalid && !signupForm.password.$pristine }">
+            <input name="password" class="form-control" placeholder="Password" type="password" ng-model="vm.newPassword" ng-minlength="8" ui-validate=" '$value==vm.newPasswordConfirm' " ui-validate-watch=" 'vm.newPasswordConfirm' " required />
+            <p ng-show="signupForm.password.$error.minlength" class="help-block">Password length demands not met.</p>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': ((signupForm.passwordConfirm.$error.minlength || signupForm.passwordConfirm.$error.validator)  && !signupForm.passwordConfirm.$pristine) || signupForm.passwordConfirm.$error.validator }">
+            <input name="passwordConfirm" class="form-control" placeholder="Confirm Password" type="password" ng-model="vm.newPasswordConfirm" ng-minlength="8" ui-validate=" '$value==vm.newPassword' " ui-validate-watch=" 'vm.newPassword' " required />
+            <p ng-show="signupForm.passwordConfirm.$error.validator" class="help-block">Passwords must match.</p>
+        </div>
+
+        <button class="btn btn-default" type="submit" ng-disabled="signupForm.$invalid">Create Account</button>
+    </form>
+</div>

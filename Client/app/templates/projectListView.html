@@ -1,0 +1,141 @@
+<div class="row" style="margin-bottom:10px">
+    <form class="form-inline">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-search" style="margin-right:2.5px"></span>
+                </span>
+                <input class="form-control input-sm" type="text" ng-model="vm.filterText" placeholder="Search projects by..."/>
+            </div>
+        </div>
+        <div class="form-group">
+            <select class="form-control input-sm" ng-options="option.text for option in vm.filterOptions track by option.value" ng-model="vm.filterBy"/>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" ng-click="vm.clearSearch()">
+            <span class="glyphicon glyphicon-remove" style="margin-right:2.5px"></span>
+            Clear Search
+        </button>
+        <button type="button" class="btn btn-sm btn-success pull-right" ng-click="vm.addProject()">
+            <span class="glyphicon glyphicon-plus" style="margin-right:2.5px"></span>
+            New Project
+        </button>
+        <button type="button" class="btn btn-sm btn-default pull-right" style="margin-right:5px" ng-click="vm.collapseAll()">
+            <span class="glyphicon glyphicon-folder-close" style="margin-right:2.5px"></span>
+            Collapse All
+        </button>
+        <button type="button" class="btn btn-sm btn-default pull-right" style="margin-right:5px" ng-click="vm.expandAll()">
+            <span class="glyphicon glyphicon-folder-open" style="margin-right:2.5px"></span>
+            Expand All
+        </button>
+    </form>
+</div>
+<div class="row">
+    <accordion close-others="false">
+        <accordion-group ng-repeat="project in vm.projects | filter:vm.filterProjects() | orderObjectBy : 'progress.order' : false track by project.id" is-open="project.isOpen">
+            <accordion-heading>
+                <div ng-class="{'bg-danger': project.progress.status == 'On Hold', 'bg-warning': project.progress.status == 'In Progress', 'bg-success': project.progress.status == 'Completed'}" style="padding: 10px 15px">
+                    <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                    {{project.name}}
+                    <div class="pull-right">
+                        {{project.progress.status}}
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="panel panel-default" style="margin-bottom:15px">
+                <div class="panel-heading" style="padding:10px; border-bottom:1px solid #ddd">
+                    <span style="font-weight: bold;">Project details</span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label>Start date:</label>
+                                    <p class="input-group" style="margin:5px">
+                                        <input type="text" class="form-control input-sm" datepicker-popup="shortDate" ng-model="project.startDate" is-open="project.startDateOpened" close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-sm" ng-click="vm.openStartDate(project, $event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label>End date:</label>
+                                    <p class="input-group" style="margin:5px">
+                                        <input type="text" class="form-control input-sm" datepicker-popup="shortDate" ng-model="project.endDate" is-open="project.endDateOpened" close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-sm" ng-click="vm.openEndDate(project, $event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="form-group pull-right">
+                                    <label>Status:</label>
+                                    <select class="form-control input-sm" style="margin:5px" ng-options="progress.status for progress in vm.projectProgressOptions track by progress.status" ng-model="project.progress"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead style="background-color: #f5f5f5;">
+                        <tr>
+                            <th></th>
+                            <th>Task</th>
+                            <th>Assigned to</th>
+                            <th>Progress</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody ng-model="project.tasks">
+                        <tr ng-repeat="task in project.tasks | orderObjectBy : 'progress.order' : false track by task.id">
+                            <td>
+                                <div class="circle" ng-class="{'red': task.progress.status == 'On Hold', 'white': task.progress.status == 'Not Started', 'orange': task.progress.status == 'In Development', 'blue': task.progress.status == 'In Testing', 'green': task.progress.status == 'Completed'}"></div>
+                            </td>
+                            <td>{{task.name}}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-default" style="margin-right:5px" ng-repeat="user in task.assignedTo" ng-click="vm.removeUser(task, user, project)">
+                                    {{user.name}}
+                                    <span class="glyphicon glyphicon-remove" style="margin-left:5px; margin-right:0px"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <select style="width:135px" class="form-control input-sm" ng-options="progress.status for progress in vm.taskProgressOptions track by progress.status" ng-model="task.progress"/>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" ng-click="vm.addResource(project,task)">
+                                    <span class="glyphicon glyphicon-plus" style="margin-right:2.5px"></span>
+                                    Add resource
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-danger" ng-click="vm.removeTask(project,task)">
+                                    <span class="glyphicon glyphicon-remove" style="margin-right:2.5px"></span>
+                                    Delete task
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-info" ui-sref="editTask({projectId: project.id, taskId: task.id})">
+                                    <span class="glyphicon glyphicon-tasks" style="margin-right:2.5px"></span>
+                                    View details
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-sm btn-success pull-right" ng-click="vm.addTask(project)">
+                        <span class="glyphicon glyphicon-plus" style="margin-right:2.5px"></span>
+                        New Task
+                    </button>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>

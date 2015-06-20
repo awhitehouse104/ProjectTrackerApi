@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ProjectTrackerConnectionString-Web.config Connection String" description="ProjectTrackerConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=ms48pcihr3.database.windows.net;Initial Catalog=ProjectTracker;User ID=awhitehouse104;Password=ad@M4o68;Connect Timeout=60" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Adam\\Documents\\Visual\ Studio\ 2013\\Projects\\ProjectTrackerApi\\ProjectTrackerApi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ProjectTrackerConnectionString']/@connectionString" />
+  </parameter>
+</parameters>

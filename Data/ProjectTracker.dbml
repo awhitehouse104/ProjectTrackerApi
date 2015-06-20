@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ProjectTracker" Class="ProjectTrackerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ms48pcihr3.database.windows.net;Initial Catalog=ProjectTracker;User ID=awhitehouse104;Connect Timeout=60" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ProjectTrackerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="PasswordSalt" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OAuthSettings" Member="OAuthSettings">
+    <Type Name="OAuthSetting">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Provider" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdentificationType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TokenSettings" Member="TokenSettings">
+    <Type Name="TokenSetting">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SecretKey" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

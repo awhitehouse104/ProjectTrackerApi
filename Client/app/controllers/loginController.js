@@ -25,6 +25,7 @@ angular.module('projectTracker')
                     $rootScope.$broadcast('login', $auth.isAuthenticated());
                     vm.email = '';
                     vm.password = '';
+                    $scope.loginForm.$setPristine();
                 }).catch(function (err) {
                     ngToast.danger('Login failed.');
                     vm.email = '';
